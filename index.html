@@ -6,7 +6,7 @@
   <title>:)))))))</title>
   <style>
     body {
-      background: linear-gradient(to right, #ffe0ec, #e0f7ff);
+      background: linear-gradient(to right, #e0f7ff, #dfefff);
       font-family: 'Segoe UI', sans-serif;
       display: flex;
       flex-direction: column;
@@ -15,31 +15,33 @@
       padding: 30px;
       height: 100vh;
       margin: 0;
-      color: #444;
+      color: #0d1b2a; /* xanh đen */
       text-align: center;
     }
 
     h2 {
-      color: #d63384;
+      color: #0d47a1; /* xanh dương đậm */
       margin-bottom: 20px;
       font-size: 24px;
     }
 
     input[type="password"], textarea {
       padding: 10px 15px;
-      border: 2px solid #d63384;
+      border: 2px solid #0d47a1;
       border-radius: 10px;
       font-size: 16px;
       outline: none;
       width: 250px;
       max-width: 80vw;
       margin: 5px;
+      background-color: #ffffff;
+      color: #0d1b2a;
     }
 
     button {
       margin-top: 10px;
       padding: 10px 15px;
-      background-color: #d63384;
+      background-color: #0d47a1;
       color: white;
       border: none;
       border-radius: 10px;
@@ -49,18 +51,19 @@
     }
 
     button:hover {
-      background-color: #b02a6b;
+      background-color: #093170;
     }
 
     #message {
       margin-top: 30px;
       font-size: 20px;
-      color: #5c1d53;
-      background: rgba(255, 255, 255, 0.8);
+      color: #001f3f;
+      background: rgba(255, 255, 255, 0.85);
       padding: 20px;
       border-radius: 15px;
       max-width: 90vw;
       min-height: 100px;
+      border: 1px solid #0d47a1;
     }
 
     #commentBox {
@@ -94,10 +97,9 @@
   <script>
     const correctPassword = "2041";
     const fullMessage = "tao thích mày từ mới vào lớp 9 nhưng t sợ m không thích t và cũng mất đi tình bạn này nhưng nếu mày đọc cái này rồi thì vẫn là bạn nha 🥺(giở t vẫn thik m)";
-    const webhookUrl = "https://discord.com/api/webhooks/1383023560129515561/Fd2f-TANo8YCjyMnmfJ4XywUcTDCbUJ52qGFQ5yXwFRNA1qU263ZFP0VZLE8klymlP9K"; // 👉 Thay webhook thật vào đây
+    const webhookUrl = "https://discord.com/api/webhooks/1383023560129515561/Fd2f-TANo8YCjyMnmfJ4XywUcTDCbUJ52qGFQ5yXwFRNA1qU263ZFP0VZLE8klymlP9K";
     let visitorIP = "Không rõ";
 
-    // 🕵️‍♂️ Lấy IP khi người mở web
     fetch("https://api.ipify.org?format=json")
       .then(res => res.json())
       .then(data => {
@@ -109,7 +111,6 @@
         sendVisitNotification(visitorIP);
       });
 
-    // ⏰ Hàm gửi thông báo truy cập về Discord
     function sendVisitNotification(ip) {
       const now = new Date();
       const time = now.toLocaleString("vi-VN");
