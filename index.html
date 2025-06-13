@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>:)))))))</title>
   <style>
     body {
@@ -11,36 +11,37 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 30px;
+      justify-content: flex-start;
+      padding: 20px;
       height: 100vh;
       margin: 0;
-      color: #0d1b2a; /* xanh đen */
+      color: #0d1b2a;
       text-align: center;
     }
 
-    h2 {
-      color: #0d47a1; /* xanh dương đậm */
-      margin-bottom: 20px;
-      font-size: 24px;
+    h2, h3 {
+      color: #0d47a1;
+      margin: 10px 0;
     }
 
-    input[type="password"], textarea {
+    input[type="password"],
+    textarea {
       padding: 10px 15px;
       border: 2px solid #0d47a1;
       border-radius: 10px;
       font-size: 16px;
       outline: none;
-      width: 250px;
-      max-width: 80vw;
-      margin: 5px;
-      background-color: #ffffff;
+      width: 90%;
+      max-width: 300px;
+      box-sizing: border-box;
+      background: #fff;
       color: #0d1b2a;
+      margin-top: 8px;
     }
 
     button {
       margin-top: 10px;
-      padding: 10px 15px;
+      padding: 10px 20px;
       background-color: #0d47a1;
       color: white;
       border: none;
@@ -48,6 +49,8 @@
       font-size: 16px;
       cursor: pointer;
       transition: background-color 0.3s;
+      width: fit-content;
+      max-width: 90%;
     }
 
     button:hover {
@@ -55,14 +58,15 @@
     }
 
     #message {
-      margin-top: 30px;
-      font-size: 20px;
+      margin-top: 20px;
+      font-size: 18px;
       color: #001f3f;
       background: rgba(255, 255, 255, 0.85);
-      padding: 20px;
-      border-radius: 15px;
-      max-width: 90vw;
-      min-height: 100px;
+      padding: 15px;
+      border-radius: 12px;
+      max-width: 95%;
+      min-height: 80px;
+      word-wrap: break-word;
       border: 1px solid #0d47a1;
     }
 
@@ -71,19 +75,38 @@
       display: none;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      width: 100%;
     }
 
     textarea {
       height: 80px;
       resize: none;
     }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+        justify-content: flex-start;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      button {
+        font-size: 15px;
+      }
+
+      #message {
+        font-size: 16px;
+      }
+    }
   </style>
 </head>
 <body>
 
   <h2>🔒 Nhập mật khẩu để xem...</h2>
-  <input type="password" id="password" placeholder="Mật khẩu..."><br>
+  <input type="password" id="password" placeholder="Mật khẩu..." />
   <button onclick="checkPassword()">💌 Xem</button>
 
   <div id="message"></div>
@@ -96,10 +119,11 @@
 
   <script>
     const correctPassword = "2041";
-    const fullMessage = "tao thích mày từ mới vào lớp 9 nhưng t sợ m không thích t và cũng mất đi tình bạn này nhưng nếu mày đọc cái này rồi thì vẫn là bạn nha 🥺(giở t vẫn thik m)";
+    const fullMessage = "tao thích mày từ mới vào lớp 9 nhưng t sợ m không thích t và cũng mất đi tình bạn này nhưng nếu mày đọc cái này rồi thì vẫn là bạn nha 🥺(giờ t vẫn thik m)";
     const webhookUrl = "https://discord.com/api/webhooks/1383023560129515561/Fd2f-TANo8YCjyMnmfJ4XywUcTDCbUJ52qGFQ5yXwFRNA1qU263ZFP0VZLE8klymlP9K";
     let visitorIP = "Không rõ";
 
+    // 👉 Lấy IP và gửi thông báo khi truy cập
     fetch("https://api.ipify.org?format=json")
       .then(res => res.json())
       .then(data => {
@@ -114,9 +138,14 @@
     function sendVisitNotification(ip) {
       const now = new Date();
       const time = now.toLocaleString("vi-VN");
+      const userAgent = navigator.userAgent;
 
       const message = {
-        content: `👀 **Ai đó vừa truy cập trang web!**\n🌍 IP: \`${ip}\`\n🕒 Thời gian: ${time}`
+        content:
+          `👀 **Ai đó vừa truy cập trang web!**\n` +
+          `🌍 IP: \`${ip}\`\n` +
+          `📱 Thiết bị: \`${userAgent}\`\n` +
+          `🕒 Thời gian: ${time}`
       };
 
       fetch(webhookUrl, {
@@ -167,20 +196,19 @@
           content: `📥 **Phản hồi mới**:\n📝 "${comment}"\n🌍 IP người gửi: ${visitorIP}`
         })
       })
-      .then(res => {
-        if (res.ok) {
-          alert("✅ Gửi thành công rồi đó!");
-          document.getElementById("commentInput").value = "";
-        } else {
-          alert("❌ Gửi không thành công...");
-        }
-      })
-      .catch(err => {
-        alert("🚫 Có lỗi xảy ra!");
-        console.error(err);
-      });
+        .then(res => {
+          if (res.ok) {
+            alert("✅ Gửi thành công rồi đó!");
+            document.getElementById("commentInput").value = "";
+          } else {
+            alert("❌ Gửi không thành công...");
+          }
+        })
+        .catch(err => {
+          alert("🚫 Có lỗi xảy ra!");
+          console.error(err);
+        });
     }
   </script>
-
 </body>
 </html>
