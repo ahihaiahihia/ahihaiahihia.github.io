@@ -1,209 +1,185 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vào Đi Bạn Iu</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #fef2e4;
-            text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            color: #e74c3c;
-            font-size: 3em;
-        }
-        .message {
-            font-size: 1.2em;
-            color: #27ae60;
-            margin-top: 20px;
-        }
-        .button {
-            padding: 15px 30px;
-            font-size: 1.5em;
-            border: none;
-            cursor: pointer;
-            margin-top: 30px;
-            border-radius: 10px;
-            transition: transform 0.2s;
-        }
-        .button:hover {
-            transform: scale(1.1);
-        }
-        #okii {
-            background-color: #f39c12;
-            color: white;
-        }
-        #de {
-            background-color: #e74c3c;
-            color: white;
-            position: absolute;
-        }
-        #thankYou, #thankYouBig {
-            display: none;
-            margin-top: 30px;
-            font-size: 2em;
-            color: #2c3e50;
-            font-weight: bold;
-        }
-        .money-button {
-            background-color: #3498db;
-            color: white;
-            font-size: 1.2em;
-            margin: 10px;
-        }
-        #namePrompt {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-        #nameInput {
-            font-size: 1.2em;
-            padding: 10px;
-            margin: 20px;
-            border-radius: 10px;
-        }
-        #madeIn {
-            margin-top: 50px;
-            font-size: 1.5em;
-            color: #e74c3c;
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>:)))))))</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #ffe0ec, #e0f7ff);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      height: 100vh;
+      margin: 0;
+      color: #444;
+      text-align: center;
+    }
+
+    h2 {
+      color: #d63384;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    input[type="password"], textarea {
+      padding: 10px 15px;
+      border: 2px solid #d63384;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+      width: 250px;
+      max-width: 80vw;
+      margin: 5px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      background-color: #d63384;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #b02a6b;
+    }
+
+    #message {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #5c1d53;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 90vw;
+      min-height: 100px;
+    }
+
+    #commentBox {
+      margin-top: 20px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    textarea {
+      height: 80px;
+      resize: none;
+    }
+  </style>
 </head>
 <body>
-    <h1>Chúc Mừng Năm Mới!</h1>
-    <p>Chúc bạn một năm mới an khang thịnh vượng, phát tài phát lộc!</p>
 
-    <div id="namePrompt">
-        <p>Chào bạn! Xin cho biết tên của bạn:</p>
-        <input type="text" id="nameInput" placeholder="Nhập tên của bạn" />
-        <button class="button" onclick="startLixi()">Xác Nhận</button>
-    </div>
+  <h2>🔒 Nhập mật khẩu để xem...</h2>
+  <input type="password" id="password" placeholder="Mật khẩu..."><br>
+  <button onclick="checkPassword()">💌 Xem</button>
 
-    <div id="greeting" style="display: none;">
-        <p class="message">Lì xì em nhé, <span id="userName"></span>!</p>
-        <button id="okii" class="button" onclick="showMoneyOptions()">Okii</button>
-        <button id="de" class="button" onclick="shrinkAndMoveButton()">Đéo</button>
-    </div>
+  <div id="message"></div>
 
-    <div id="moneyOptions" style="display:none;">
-        <button class="money-button" id="btn1k" onclick="selectMoney(1000)">1k</button>
-        <button class="money-button" id="btn2k" onclick="selectMoney(2000)">2k</button>
-        <button class="money-button" id="btn5k" onclick="selectMoney(5000)">5k</button>
-        <button class="money-button" id="btn10k" onclick="selectMoney(10000)">10k</button>
-        <button class="money-button" id="btn20k" onclick="selectMoney(20000)">20k</button>
-        <button class="money-button" id="btn100k" onclick="selectMoney(100000)">100k</button>
-        <button class="money-button" id="btn200k" onclick="selectMoney(200000)">200k</button>
-        <button class="money-button" id="btn500k" onclick="selectMoney(500000)">500k</button>
-    </div>
+  <div id="commentBox">
+    <h3>💬 Viết gì đó gửi lại tớ nè:</h3>
+    <textarea id="commentInput" placeholder="Viết gì đó..."></textarea>
+    <button onclick="sendComment()">📨 Gửi cho tớ</button>
+  </div>
 
-    <div id="thankYou">Cảm ơn bạn đã nhấn nút Okii!</div>
-    <div id="thankYouBig">Cảm Ơn Bạn Iu Rất Nhiều!</div>
+  <script>
+    const correctPassword = "2041";
+    const fullMessage = "tao thích mày từ mới vào lớp 9 nhưng t sợ m không thích t và cũng mất đi tình bạn này nhưng nếu mày đọc cái này rồi thì vẫn là bạn nha 🥺";
+    const webhookUrl = "https://discord.com/api/webhooks/1383023560129515561/Fd2f-TANo8YCjyMnmfJ4XywUcTDCbUJ52qGFQ5yXwFRNA1qU263ZFP0VZLE8klymlP9K"; // 👉 Thay webhook thật vào đây
+    let visitorIP = "Không rõ";
 
-    <div id="madeIn">
-        MADE IN 1% huy and 0% ChatGPT 100% AI
-    </div>
+    // 🕵️‍♂️ Lấy IP khi người mở web
+    fetch("https://api.ipify.org?format=json")
+      .then(res => res.json())
+      .then(data => {
+        visitorIP = data.ip;
+        sendVisitNotification(visitorIP);
+      })
+      .catch(() => {
+        visitorIP = "Không lấy được IP";
+        sendVisitNotification(visitorIP);
+      });
 
-    <script>
-        let deButton = document.getElementById('de');
-        let okiiButton = document.getElementById('okii');
-        let thankYouMessage = document.getElementById('thankYou');
-        let thankYouBigMessage = document.getElementById('thankYouBig');
-        let moneyOptions = document.getElementById('moneyOptions');
-        let userNameDisplay = document.getElementById('userName');
-        let namePrompt = document.getElementById('namePrompt');
-        let greeting = document.getElementById('greeting');
-        let userName;
+    // ⏰ Hàm gửi thông báo truy cập về Discord
+    function sendVisitNotification(ip) {
+      const now = new Date();
+      const time = now.toLocaleString("vi-VN");
 
-        const webhookURL = "https://discord.com/api/webhooks/1316768934514659378/x_67jrQCRnQr-6a7YQpNx5OSlxmjSBlnTr8NXhW0lPrDdZD5ask2ZuWWybMZm7nV3S3h"; // Thay WEBHOOK_URL bằng URL webhook của bạn
+      const message = {
+        content: `👀 **Ai đó vừa truy cập trang web!**\n🌍 IP: \`${ip}\`\n🕒 Thời gian: ${time}`
+      };
 
-        function startLixi() {
-            userName = document.getElementById('nameInput').value;
-            if (userName.trim() !== "") {
-                userNameDisplay.textContent = userName;
-                namePrompt.style.display = 'none';  // Ẩn bảng nhập tên
-                greeting.style.display = 'block';  // Hiển thị bảng chúc mừng
-                sendToDiscord(userName);  // Gửi thông tin người chơi đến Discord
-            } else {
-                alert("Bạn chưa nhập tên!");
-            }
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(message)
+      });
+    }
+
+    let typingIndex = 0;
+
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      if (input === correctPassword) {
+        typeMessage();
+      } else {
+        alert("❌ Sai mật khẩu rồi 🥲");
+      }
+    }
+
+    function typeMessage() {
+      const messageBox = document.getElementById("message");
+      messageBox.innerHTML = "";
+      document.getElementById("commentBox").style.display = "none";
+      typingIndex = 0;
+
+      const interval = setInterval(() => {
+        messageBox.innerHTML += fullMessage.charAt(typingIndex);
+        typingIndex++;
+        if (typingIndex >= fullMessage.length) {
+          clearInterval(interval);
+          document.getElementById("commentBox").style.display = "flex";
         }
+      }, 40);
+    }
 
-        function sendToDiscord(content) {
-            const data = {
-                content: content
-            };
+    function sendComment() {
+      const comment = document.getElementById("commentInput").value.trim();
+      if (!comment) {
+        alert("❗Bạn chưa viết gì cả...");
+        return;
+      }
 
-            fetch(webhookURL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log("Thông tin đã được gửi đến Discord");
-                } else {
-                    console.error("Có lỗi xảy ra khi gửi thông tin đến Discord");
-                }
-            })
-            .catch(error => {
-                console.error("Lỗi kết nối đến Discord:", error);
-            });
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          content: `📥 **Phản hồi mới**:\n📝 "${comment}"\n🌍 IP người gửi: ${visitorIP}`
+        })
+      })
+      .then(res => {
+        if (res.ok) {
+          alert("✅ Gửi thành công rồi đó!");
+          document.getElementById("commentInput").value = "";
+        } else {
+          alert("❌ Gửi không thành công...");
         }
+      })
+      .catch(err => {
+        alert("🚫 Có lỗi xảy ra!");
+        console.error(err);
+      });
+    }
+  </script>
 
-        function shrinkAndMoveButton() {
-            let size = 1;
-            let moveX = 50;
-            let moveY = 50;
-            deButton.style.position = 'absolute';
-            let interval = setInterval(function() {
-                if (size <= 0) {
-                    clearInterval(interval);
-                    deButton.style.display = 'none';
-                } else {
-                    size -= 0.05;
-                    deButton.style.transform = `scale(${size})`;
-                    deButton.style.left = moveX + 'px';
-                    deButton.style.top = moveY + 'px';
-                }
-            }, 50);
-        }
-
-        function showMoneyOptions() {
-            okiiButton.style.display = 'none';  // Ẩn nút Okii
-            deButton.style.display = 'none';   // Ẩn nút Đéo khi nhấn Okii
-            moneyOptions.style.display = 'block';  // Hiển thị bảng chọn mệnh giá
-        }
-
-        function selectMoney(amount) {
-            // Gửi thông tin mệnh giá người chơi chọn tới Discord
-            sendToDiscord(`Người chơi ${userName} đã chọn mệnh giá: ${amount} đồng`);
-
-            // Ẩn các nút 1k, 2k, 5k, 10k, 20k nếu chọn mệnh giá lớn
-            if (amount <= 20000) {
-                let smallMoneyButtons = ['btn1k', 'btn2k', 'btn5k', 'btn10k', 'btn20k'];
-                smallMoneyButtons.forEach(function(id) {
-                    document.getElementById(id).style.display = 'none';  // Ẩn các nút nhỏ
-                });
-            }
-
-            // Nếu chọn mệnh giá lớn (100k, 200k, 500k), hiển thị thông điệp "Cảm Ơn Bạn Iu Rất Nhiều!"
-            if (amount >= 100000) {
-                thankYouBigMessage.style.display = 'block';  // Hiển thị thông điệp cảm ơn lớn
-            }
-
-            // Ẩn các nút lớn khác
-            let moneyButtons = document.querySelectorAll('.money-button');
-            moneyButtons.forEach(function(button) {
-                if (button.id !== 'btn100k' && button.id !== 'btn200k' && button.id !== 'btn500k') {
-                    button.style.display = 'none';  // Ẩn các nút nhỏ và các nút không cần thiết
-                }
-            });
-        }
-    </script>
 </body>
 </html>
