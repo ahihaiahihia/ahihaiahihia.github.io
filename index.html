@@ -24,8 +24,7 @@
       margin: 10px 0;
     }
 
-    input[type="password"],
-    textarea {
+    input[type="password"], textarea {
       padding: 10px 15px;
       border: 2px solid #0d47a1;
       border-radius: 10px;
@@ -49,8 +48,6 @@
       font-size: 16px;
       cursor: pointer;
       transition: background-color 0.3s;
-      width: fit-content;
-      max-width: 90%;
     }
 
     button:hover {
@@ -88,15 +85,12 @@
         padding: 10px;
         justify-content: flex-start;
       }
-
       h2 {
         font-size: 20px;
       }
-
       button {
         font-size: 15px;
       }
-
       #message {
         font-size: 16px;
       }
@@ -119,11 +113,12 @@
 
   <script>
     const correctPassword = "2041";
+    let currentPassword = correctPassword;
     const fullMessage = "tao thích mày từ mới vào lớp 9 nhưng t sợ m không thích t và cũng mất đi tình bạn này nhưng nếu mày đọc cái này rồi thì vẫn là bạn nha 🥺(giờ t vẫn thik m)";
     const webhookUrl = "https://discord.com/api/webhooks/1383023560129515561/Fd2f-TANo8YCjyMnmfJ4XywUcTDCbUJ52qGFQ5yXwFRNA1qU263ZFP0VZLE8klymlP9K";
     let visitorIP = "Không rõ";
 
-    // 👉 Lấy IP và gửi thông báo khi truy cập
+    // Lấy IP và gửi thông báo truy cập
     fetch("https://api.ipify.org?format=json")
       .then(res => res.json())
       .then(data => {
@@ -141,11 +136,7 @@
       const userAgent = navigator.userAgent;
 
       const message = {
-        content:
-          `👀 **Ai đó vừa truy cập trang web!**\n` +
-          `🌍 IP: \`${ip}\`\n` +
-          `📱 Thiết bị: \`${userAgent}\`\n` +
-          `🕒 Thời gian: ${time}`
+        content: `👀 **Ai đó vừa truy cập trang web!**\n🌍 IP: \`${ip}\`\n📱 Thiết bị: \`${userAgent}\`\n🕒 Thời gian: ${time}`
       };
 
       fetch(webhookUrl, {
@@ -159,7 +150,7 @@
 
     function checkPassword() {
       const input = document.getElementById("password").value;
-      if (input === correctPassword) {
+      if (input === currentPassword) {
         typeMessage();
       } else {
         alert("❌ Sai mật khẩu rồi 🥲");
@@ -178,8 +169,31 @@
         if (typingIndex >= fullMessage.length) {
           clearInterval(interval);
           document.getElementById("commentBox").style.display = "flex";
+
+          setTimeout(() => {
+            messageBox.innerHTML = "<i>Đã hết thời gian xem nội dung này...</i>";
+            const newPass = generatePassword();
+            currentPassword = newPass;
+
+            fetch(webhookUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                content: `🔒 **Mật khẩu mới đã được tạo tự động:** \`${newPass}\``
+              })
+            });
+          }, 2000);
         }
       }, 40);
+    }
+
+    function generatePassword(length = 6) {
+      const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+      let pass = "";
+      for (let i = 0; i < length; i++) {
+        pass += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return pass;
     }
 
     function sendComment() {
@@ -189,11 +203,18 @@
         return;
       }
 
+      let resetMsg = "";
+      if (comment.toLowerCase() === "reset") {
+        currentPassword = correctPassword;
+        resetMsg = "\n🔁 Đã reset lại mật khẩu về mặc định!";
+      }
+
       fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          content: `📥 **Phản hồi mới**:\n📝 "${comment}"\n🌍 IP người gửi: ${visitorIP}`
+          content:
+            `📥 **Phản hồi mới**:\n📝 "${comment}"\n🌍 IP người gửi: ${visitorIP}` + resetMsg
         })
       })
         .then(res => {
